@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzm.datasource.repository.UsersMapper">
+
+    <resultMap id="SysUserResultMap" type="Users">
+        <id property="id" column="id" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="age" column="age" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="name" column="name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="status" column="status" javaType="java.lang.String" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <delete id="deleteById" parameterType="Users">
+        delete from users where id=#{id,jdbcType=VARCHAR}
+    </delete>
+
+    <select id="selectAll"  resultMap="SysUserResultMap">
+        select * from users
+    </select>
+
+
+    <insert id="save" parameterType="Users" >
+        insert into users
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="name != null" >
+                name,
+            </if>
+            <if test="age != null" >
+                age,
+            </if>
+            <if test="status != null" >
+                status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null" >
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null" >
+                #{age,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null" >
+                #{status,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+
+    <update id="update" parameterType="Users" >
+        update users
+        <set >
+            <if test="name != null" >
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null" >
+                age = #{age,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null" >
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+
+    <select id="selectById" parameterType="Users" resultMap="SysUserResultMap">
+        select
+        *
+        from users
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+</mapper>

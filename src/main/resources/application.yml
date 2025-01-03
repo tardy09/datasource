@@ -1,0 +1,35 @@
+server:
+  port: 80
+  servlet:
+    context-path: /datasource
+spring:
+  datasource:
+    master:
+      type: com.zaxxer.hikari.HikariDataSource
+      url: jdbc:mysql:/47.99.129.140:3306/mycat_db1?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+      driver-class-name: com.mysql.jdbc.Driver
+      username: root1
+      password: shenzhenair.com*pwd
+    cluster:
+    - key: slave1
+      type: com.zaxxer.hikari.HikariDataSource
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:8066/TESTDB?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+      username: root
+      password: 123456
+      idle-timeout: 20000
+    - key: slave2
+      url: jdbc:mysql://127.0.0.1:8066/TESTDB?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+      driver-class-name: com.mysql.jdbc.Driver
+      username: user
+      password: user
+mybatis:
+  mapper-locations: classpath:/mybatis/mapper/*.xml
+  config-location:  classpath:/mybatis/config/mybatis-config.xml
+
+logging:
+  level:
+    com:
+      zzm:
+        datasource:
+          repository: debug
